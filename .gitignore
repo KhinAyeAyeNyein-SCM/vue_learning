@@ -1,0 +1,5 @@
+.metadata/
+/Medium_API/.settings/
+/Medium_API/.metadata/
+/Medium_API/.*
+/Servers
