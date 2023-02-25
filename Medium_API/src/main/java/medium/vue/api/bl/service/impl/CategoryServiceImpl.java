@@ -35,4 +35,9 @@ public class CategoryServiceImpl implements CategoryService{
     public void doSaveCategory(Category category) {
         this.categoryDAO.dbSaveCategory(category);
     }
+    
+    @Override
+    public Category doGetCategoryByName(String name) {
+        return this.categoryDAO.dbGetCategoryByName(name);
+    }
 }

@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import medium.vue.api.web.form.CommentForm;
 
 /**
  * <h2> Comment Class</h2>
@@ -51,7 +52,7 @@ public class Comment implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     
     /**
      * <h2> user</h2>
@@ -80,7 +81,7 @@ public class Comment implements Serializable{
      * </p>
      */
     @Column(name = "parent_comment_id")
-    private int parentCommentId;
+    private Integer parentCommentId;
     
     /**
      * <h2> body</h2>
@@ -108,4 +109,10 @@ public class Comment implements Serializable{
      */
     @Column(name = "updated_at")
     private Date updatedAt;
+    
+    public Comment(CommentForm comment) {
+        this.id = comment.getCommentId();
+        this.body = comment.getBody();
+        this.parentCommentId = comment.getParentCommentId();
+    }
 }

@@ -15,12 +15,12 @@ import medium.vue.api.persistence.entity.Category;
 public class CategoryForm implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private int categoryId;
+    private Integer categoryId;
     
-    private String name;
+    private String categoryName;
     
     public CategoryForm(Category category) {
         this.categoryId = category.getId();
-        this.name = category.getName();
+        this.categoryName = category.getName();
     }
 }

@@ -8,11 +8,32 @@ import org.springframework.stereotype.Repository;
 import medium.vue.api.persistence.dao.UserDAO;
 import medium.vue.api.persistence.entity.User;
 
+/**
+ * <h2> UserDAOImpl Class</h2>
+ * <p>
+ * Process for Displaying UserDAOImpl
+ * </p>
+ * 
+ * @author KhinAyeAyeNyein
+ *
+ */
 @Repository
 public class UserDAOImpl implements UserDAO{
+    /**
+     * <h2> session</h2>
+     * <p>
+     * session
+     * </p>
+     */
     @Autowired
     private SessionFactory session;
     
+    /**
+     * <h2> SELECT_USER_HQL</h2>
+     * <p>
+     * SELECT_USER_HQL
+     * </p>
+     */
     private static final String SELECT_USER_HQL = "SELECT " 
                                                 + "u "
                                                 + "FROM "

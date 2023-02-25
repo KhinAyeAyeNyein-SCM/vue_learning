@@ -3,6 +3,8 @@ package medium.vue.api.web.form;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,7 @@ public class UserForm {
      * id
      * </p>
      */
-    private int id;
+    private Integer id;
     
     /**
      * <h2> name</h2>
@@ -83,6 +85,22 @@ public class UserForm {
      * </p>
      */
     private String profile;
+    
+    /**
+     * <h2> postCount</h2>
+     * <p>
+     * postCount
+     * </p>
+     */
+    private Integer postCount;
+    
+    /**
+     * <h2> file</h2>
+     * <p>
+     * file
+     * </p>
+     */
+    private MultipartFile file;
     
     /**
      * <h2> Constructor for UserForm </h2>

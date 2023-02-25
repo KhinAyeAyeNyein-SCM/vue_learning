@@ -35,6 +35,17 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- <mvc:cors>
+        <mvc:mapping path="/api/**"
+            allowed-origins="http://localhost:8080/, http://172.20.70.95:8080/"
+            allowed-methods="GET, POST"
+            allowed-headers="Authorization, Content-Type"
+            allow-credentials="true"
+            max-age="3600" />
+        <mvc:mapping path="/resources/**"
+            allowed-origins="http://localhost:8080/" />
+    </mvc:cors> -->
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

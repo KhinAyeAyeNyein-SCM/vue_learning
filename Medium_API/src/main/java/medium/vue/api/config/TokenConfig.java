@@ -3,6 +3,7 @@ package medium.vue.api.config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -123,9 +124,9 @@ public class TokenConfig {
     public String getLoggedInEmail(String token) {
         return getClaim(token, Claims::getSubject);
     }
-    
+
     /**
-     * <h2> getLoginEmail</h2>
+     * <h2>getLoginEmail</h2>
      * <p>
      * 
      * </p>
@@ -200,6 +201,10 @@ public class TokenConfig {
      * @return String
      */
     public String getBearerToken(HttpServletRequest request) {
+        Enumeration headers = request.getHeaderNames();
+        while (headers.nextElement() != null) {
+           // System.out.println(headers.equals("Authorization"));
+        }
         String requestHeader = request.getHeader("Authorization");
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             return requestHeader.substring(7);
@@ -220,24 +225,24 @@ public class TokenConfig {
      */
     public void getLoginFailResponse(HttpServletResponse response, int status) throws IOException {
         LoginResponseDTO responseDTO = null;
-        if (status == HttpStatus.FORBIDDEN.value()) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            responseDTO = new LoginResponseDTO(HttpStatus.FORBIDDEN.value(), "Forbidden");
-        } else if (status == HttpStatus.BAD_REQUEST.value()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            responseDTO = new LoginResponseDTO(HttpStatus.BAD_REQUEST.value(), "Bad Request");
+        if (status == HttpStatus.OK.value()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            responseDTO = new LoginResponseDTO(HttpStatus.OK.value(), "Forbidden");
+        } else if (status == HttpStatus.OK.value()) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            responseDTO = new LoginResponseDTO(HttpStatus.OK.value(), "Bad Request");
         } else {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            responseDTO = new LoginResponseDTO(HttpStatus.UNAUTHORIZED.value(), "Unauthorized");
+            response.setStatus(HttpServletResponse.SC_OK);
+            responseDTO = new LoginResponseDTO(HttpStatus.OK.value(), "Unauthorized");
         }
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
         out.print(new Gson().toJson(responseDTO));
         out.flush();
     }
-    
+
     /**
-     * <h2> refreshToken</h2>
+     * <h2>refreshToken</h2>
      * <p>
      * 
      * </p>

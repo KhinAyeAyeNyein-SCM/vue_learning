@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import medium.vue.api.persistence.entity.Post;
+import medium.vue.api.web.form.CategoryForm;
+import medium.vue.api.web.form.PostForm;
 import medium.vue.api.web.form.UserForm;
 
 /**
@@ -64,6 +67,14 @@ public class UserResponseDTO {
     private UserForm userForm;
     
     /**
+     * <h2> postList</h2>
+     * <p>
+     * postList
+     * </p>
+     */
+    private List<PostForm> postList;
+    
+    /**
      * <h2> email</h2>
      * <p>
      * email
@@ -86,6 +97,14 @@ public class UserResponseDTO {
      * </p>
      */
     private String errors;
+
+    /**
+     * <h2> categories</h2>
+     * <p>
+     * categories
+     * </p>
+     */
+    private List<CategoryForm> categories;
     
     /**
      * <h2> Constructor for UserResponseDTO </h2>

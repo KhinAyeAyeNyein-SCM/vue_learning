@@ -13,7 +13,7 @@ import medium.vue.api.bl.service.dto.LoginDTO;
 import medium.vue.api.config.TokenConfig;
 
 /**
- * <h2> AuthorizationInterceptor Class</h2>
+ * <h2>AuthorizationInterceptor Class</h2>
  * <p>
  * Process for Displaying AuthorizationInterceptor
  * </p>
@@ -21,18 +21,18 @@ import medium.vue.api.config.TokenConfig;
  * @author KhinAyeAyeNyein
  *
  */
-public class AuthorizationInterceptor extends HandlerInterceptorAdapter{
+public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     /**
-     * <h2> tokenConfig</h2>
+     * <h2>tokenConfig</h2>
      * <p>
      * tokenConfig
      * </p>
      */
     @Autowired
     private TokenConfig tokenConfig;
-    
+
     /**
-     * <h2> preHandle</h2>
+     * <h2>preHandle</h2>
      * <p>
      * 
      * </p>
@@ -44,10 +44,16 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter{
      * @return boolean
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        response.setHeader("Access-Control-Allow-Headers",
+                "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Authorization, Access-Control-Request-Method, Access-Control-Request-Headers");
         String token = tokenConfig.getBearerToken(request);
         if (token == null) {
-            tokenConfig.getLoginFailResponse(response, HttpStatus.UNAUTHORIZED.value());
+            tokenConfig.getLoginFailResponse(response, HttpStatus.CREATED.value());
             return false;
         }
         LoginDTO loginUser = null;
@@ -55,7 +61,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter{
             loginUser = tokenConfig.getLoginDTO(token);
         }
         if (loginUser == null) {
-            tokenConfig.getLoginFailResponse(response, HttpStatus.UNAUTHORIZED.value());
+            tokenConfig.getLoginFailResponse(response, HttpStatus.CREATED.value());
             return false;
         } else {
             return true;

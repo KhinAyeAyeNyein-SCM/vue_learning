@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import medium.vue.api.persistence.dao.PostDAO;
 import medium.vue.api.persistence.entity.Post;
+import medium.vue.api.persistence.entity.User;
 import medium.vue.api.web.form.PostForm;
 
 /**
@@ -93,6 +94,26 @@ public class PostDaoImpl implements PostDAO{
         Query query = this.session.getCurrentSession().createQuery(queryBuffer.toString());
         query.setParameter("postId", postId);
         return (Post) query.uniqueResult();
+    }
+    
+    /**
+     * <h2> dbGetPostCountByUserId</h2>
+     * <p>
+     * 
+     * </p>
+     *
+     * @param user
+     * @return
+     * @return Integer
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
+    public List<Post> dbGetPosListByUserId(User user) {
+        StringBuffer queryBuffer = new StringBuffer(POST_LIST_HQL);
+        queryBuffer.append("AND p.user = :userId");
+        Query query = this.session.getCurrentSession().createQuery(queryBuffer.toString());
+        query.setParameter("userId", user);
+        return query.list();
     }
     
     /**

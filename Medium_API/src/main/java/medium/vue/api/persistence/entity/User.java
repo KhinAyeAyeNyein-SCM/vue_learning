@@ -48,7 +48,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
     
     /**
      * <h2> name</h2>

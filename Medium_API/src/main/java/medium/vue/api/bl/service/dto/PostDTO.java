@@ -5,13 +5,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import medium.vue.api.persistence.entity.User;
+import medium.vue.api.web.form.CategoryForm;
 import medium.vue.api.web.form.PostForm;
 
 @Setter
@@ -21,7 +20,7 @@ import medium.vue.api.web.form.PostForm;
 public class PostDTO implements Serializable{
 private static final long serialVersionUID = 1L;
     
-    private int postId;
+    private Integer postId;
     
     private User user;
     
@@ -30,8 +29,6 @@ private static final long serialVersionUID = 1L;
     private String description;
     
     private String image;
-    
-    private MultipartFile file;
 
     private Map<String, String> errors;
     
@@ -42,6 +39,8 @@ private static final long serialVersionUID = 1L;
     private Integer responseCode;
     
     private List<PostForm> postList;
+    
+    private List<CategoryForm> categories;
     
     private PostForm postForm;
 }

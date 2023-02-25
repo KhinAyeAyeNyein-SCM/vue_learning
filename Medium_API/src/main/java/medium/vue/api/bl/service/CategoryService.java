@@ -11,4 +11,6 @@ public interface CategoryService {
 
     public void doSaveCategory(Category category);
 
+    public Category doGetCategoryByName(String name);
+
 }

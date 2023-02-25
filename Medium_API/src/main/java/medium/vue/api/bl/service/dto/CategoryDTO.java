@@ -15,7 +15,7 @@ import medium.vue.api.persistence.entity.Category;
 public class CategoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int categoryId;
+    private Integer categoryId;
 
     private String name;
 

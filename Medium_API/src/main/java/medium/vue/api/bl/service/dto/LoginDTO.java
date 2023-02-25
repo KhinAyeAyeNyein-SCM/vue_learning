@@ -15,7 +15,7 @@ import medium.vue.api.persistence.entity.User;
 public class LoginDTO implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    private int loginId;
+    private Integer loginId;
     
     private String name;
     
