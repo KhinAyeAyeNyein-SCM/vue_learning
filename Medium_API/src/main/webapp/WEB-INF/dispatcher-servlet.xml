@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="  
+http://www.springframework.org/schema/mvc  
+http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+http://www.springframework.org/schema/beans  
+http://www.springframework.org/schema/beans/spring-beans.xsd  
+http://www.springframework.org/schema/context   
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <mvc:annotation-driven />
+    <context:component-scan
+        base-package="medium.vue.api">
+    </context:component-scan>
+    <context:annotation-config></context:annotation-config>
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"
+            value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.databaseurl}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+    </bean>
+
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+        <property name="packagesToScan"
+            value="medium.vue.api.persistence.entity" />
+    </bean>
+
+    <tx:annotation-driven
+        transaction-manager="transactionManager" />
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="20971520" />
+    </bean>
+
+    <bean id="bCryptPasswordEncoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+    </bean>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**" />
+            <mvc:exclude-mapping path="/api/login" />
+            <mvc:exclude-mapping path="/api/register" />
+            <mvc:exclude-mapping path="/api/refreshToken" />
+            <bean
+                class="medium.vue.api.common.AuthorizationInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>  
